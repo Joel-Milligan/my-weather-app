@@ -8,7 +8,7 @@ import metrics from '../themes/metrics';
  * A sum type which states that the theme can be primary or secondary.
  * If you've not heard of a sum type before, this article may be of interest (although it's not Typescript specific) https://adapptor.com.au/blog/sum-types-in-swift-and-kotlin
  */
-export type ButtonTheme = 'primary' | 'secondary';
+export type ButtonTheme = 'primary' | 'secondary' | 'disabled';
 
 interface Props {
   /**
@@ -31,12 +31,19 @@ interface Props {
    * An optional true|false property which tells us whether or not this button should use a secondary style.
    */
   secondary?: boolean;
+
+  disabled?: boolean;
 }
 
 export function SimpleButton(props: Props): ReactElement<Props> {
-  const buttonTheme: ButtonTheme = props.secondary === true ? 'secondary' : 'primary';
+  const buttonTheme: ButtonTheme = props.disabled ? 'disabled' : props.secondary ? 'secondary' : 'primary';
+
   return (
-    <TouchableOpacity onPress={props.onPress} style={[styles[buttonTheme].container, props.style]}>
+    <TouchableOpacity
+      onPress={props.onPress}
+      style={[styles[buttonTheme].container, props.style]}
+      disabled={props.disabled}
+    >
       <Text style={styles[buttonTheme].title}>{props.title}</Text>
     </TouchableOpacity>
   );
@@ -79,7 +86,20 @@ const redOnWhiteStyles = StyleSheet.create({
   },
 });
 
+const disabledStyles = StyleSheet.create({
+  ...commonStyles,
+  container: {
+    ...commonStyles.container,
+    backgroundColor: colors.blankedOutBackground,
+  },
+  title: {
+    ...commonStyles.title,
+    color: colors.bodyTextColor,
+  },
+});
+
 const styles = {
   primary: whiteOnRedStyles,
   secondary: redOnWhiteStyles,
+  disabled: disabledStyles,
 };

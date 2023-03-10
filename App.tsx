@@ -20,8 +20,9 @@ export default function App() {
   return (
     <View style={styles.container}>
       <HelloWorld shouldRenderWorld />
-      <SimpleButton title="Do the thing!" />
+      <SimpleButton title="Primary" />
       <SimpleButton title="Secondary" secondary />
+      <SimpleButton title="Disabled" disabled />
       <StatusBar style="auto" />
     </View>
   );
