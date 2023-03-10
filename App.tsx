@@ -1,9 +1,9 @@
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View } from 'react-native';
 
-import { Modal } from './components/modal.dialog';
-import { OptionsList } from './components/options-list';
-import { SimpleButton } from './components/simple-button';
+import { Modal } from './components/ModalDialog';
+import { OptionsList } from './components/OptionsList';
+import { SimpleButton } from './components/SimpleButton';
 import images from './themes/images';
 
 interface HelloWorldProps {

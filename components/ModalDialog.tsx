@@ -1,7 +1,7 @@
 import React, { ReactElement } from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 
-import { SimpleButton } from './simple-button';
+import { SimpleButton } from './SimpleButton';
 import colors from '../themes/colors';
 import metrics from '../themes/metrics';
 
