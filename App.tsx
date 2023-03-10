@@ -26,9 +26,7 @@ export default function App() {
   return (
     <View style={styles.container}>
       <HelloWorld shouldRenderWorld />
-      <SimpleButton title="Primary" />
-      <SimpleButton title="Secondary" secondary />
-      <SimpleButton title="Disabled" disabled />
+      <SimpleButton title="Show Modal" onPress={() => setShowDialog(true)} />
       <OptionsList
         title="Settings"
         rows={[
@@ -42,10 +40,10 @@ export default function App() {
         title="Success"
         content={{
           type: 'standard',
-          text: 'You have successfully completed the survey! You are one step closer to becoming {insert amazing title}. Great work!',
+          text: 'You have successfully completed the survey! You are one step closer to becoming a mobile phone. Great work!',
         }}
         show={showDialog}
-        dismissButton={{ onDismiss: () => setShowDialog(false) }}
+        dismissButton={{ title: 'Dismiss', onDismiss: () => setShowDialog(false) }}
       />
       <StatusBar style="auto" />
     </View>
