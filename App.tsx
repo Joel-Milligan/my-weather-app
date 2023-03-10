@@ -1,4 +1,5 @@
 import { StatusBar } from 'expo-status-bar';
+import { useState } from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 
 import { Modal } from './components/ModalDialog';
@@ -20,6 +21,8 @@ function HelloWorld(props: HelloWorldProps) {
 }
 
 export default function App() {
+  const [showDialog, setShowDialog] = useState(true);
+
   return (
     <View style={styles.container}>
       <HelloWorld shouldRenderWorld />
@@ -41,23 +44,8 @@ export default function App() {
           type: 'standard',
           text: 'You have successfully completed the survey! You are one step closer to becoming {insert amazing title}. Great work!',
         }}
-        show={false}
-      />
-      <Modal
-        title="Custom Success"
-        content={{
-          type: 'custom',
-          element: (
-            <OptionsList
-              title="Settings"
-              rows={[
-                { title: 'Notifications', leftIcon: images.favIcon },
-                { title: 'Sounds & Haptics', leftIcon: images.favIcon },
-              ]}
-            />
-          ),
-        }}
-        show
+        show={showDialog}
+        dismissButton={{ onDismiss: () => setShowDialog(false) }}
       />
       <StatusBar style="auto" />
     </View>
