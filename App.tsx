@@ -5,6 +5,7 @@ import { StyleSheet, Text, View } from 'react-native';
 import { Accumulator } from './components/Accumulator';
 import { Counter } from './components/Counter';
 import { Modal } from './components/ModalDialog';
+import { MyForm } from './components/MyForm';
 import { OptionsList } from './components/OptionsList';
 import { SimpleButton } from './components/SimpleButton';
 import images from './themes/images';
@@ -46,6 +47,7 @@ export default function App() {
         dismissButton={{ title: 'Dismiss', onDismiss: () => setShowDialog(false) }}
       />
       <Counter />
+      <MyForm />
       <StatusBar style="auto" />
     </View>
   );
