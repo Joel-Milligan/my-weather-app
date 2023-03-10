@@ -12,14 +12,12 @@ interface HelloWorldProps {
   shouldRenderWorld: boolean;
 }
 
-function HelloWorld(props: HelloWorldProps) {
-  return (
-    <View style={styles.view}>
-      <Text style={styles.text}>Hello</Text>
-      {props.shouldRenderWorld && <Text style={styles.text}>World</Text>}
-    </View>
-  );
-}
+const HelloWorld = (props: HelloWorldProps) => (
+  <View style={styles.view}>
+    <Text style={styles.text}>Hello</Text>
+    {props.shouldRenderWorld && <Text style={styles.text}>World</Text>}
+  </View>
+);
 
 export default function App() {
   const [showDialog, setShowDialog] = useState(true);

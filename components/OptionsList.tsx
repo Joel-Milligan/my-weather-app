@@ -52,6 +52,7 @@ const styles = StyleSheet.create({
   },
   title: {
     alignSelf: 'flex-start',
+    paddingLeft: metrics.baseMargin,
     fontSize: metrics.h1FontSize,
     color: colors.title,
   },
