@@ -1,6 +1,8 @@
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View } from 'react-native';
 
+import { SimpleButton } from './components/simple-button';
+
 interface HelloWorldProps {
   shouldRenderWorld: boolean;
 }
@@ -18,6 +20,8 @@ export default function App() {
   return (
     <View style={styles.container}>
       <HelloWorld shouldRenderWorld />
+      <SimpleButton title="Do the thing!" />
+      <SimpleButton title="Secondary" secondary />
       <StatusBar style="auto" />
     </View>
   );
