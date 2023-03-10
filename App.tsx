@@ -1,7 +1,8 @@
 import { StatusBar } from 'expo-status-bar';
-import { useState } from 'react';
+import React, { useState } from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 
+import { Accumulator } from './components/Accumulator';
 import { Modal } from './components/ModalDialog';
 import { OptionsList } from './components/OptionsList';
 import { SimpleButton } from './components/SimpleButton';
@@ -45,6 +46,7 @@ export default function App() {
         show={showDialog}
         dismissButton={{ title: 'Dismiss', onDismiss: () => setShowDialog(false) }}
       />
+      <Accumulator bigArray={[...Array(100000).keys()]} />
       <StatusBar style="auto" />
     </View>
   );
