@@ -25,7 +25,7 @@ export function Screen1(props: Props): ReactElement {
       <SimpleButton
         title="Load"
         onPress={() => {
-          dispatch(GlobalLoaderActions.show({ message: 'Loading' }));
+          dispatch(GlobalLoaderActions.show({ cancelMessage: 'Cancel load' }));
         }}
         style={styles.button}
         secondary
