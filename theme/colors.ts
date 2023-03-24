@@ -1,6 +1,6 @@
 const white = '#ffffff';
 
-export default {
+export const colors = {
   blankedOutBackground: '#18181888',
   standardBackground: white,
   cancelText: 'red',

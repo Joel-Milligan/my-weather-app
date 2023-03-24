@@ -2,8 +2,8 @@ import React, { ReactElement } from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 
 import { SimpleButton } from './SimpleButton';
-import colors from '../theme/colors';
-import metrics from '../theme/metrics';
+import { colors } from '../theme/colors';
+import { metrics } from '../theme/metrics';
 
 interface StandardModal {
   type: 'standard';

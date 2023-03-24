@@ -1,6 +1,6 @@
 const baseMargin = 10;
 
-export default {
+export const metrics = {
   smallMargin: baseMargin * 0.5,
   baseMargin,
   largerMargin: baseMargin * 1.5,

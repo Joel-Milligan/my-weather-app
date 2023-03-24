@@ -3,8 +3,8 @@ import { StyleSheet, Text, View } from 'react-native';
 
 import { DefaultStackScreenProps } from './nav-types';
 import { SimpleButton } from '../components/SimpleButton';
-import colors from '../theme/colors';
-import metrics from '../theme/metrics';
+import { colors } from '../theme/colors';
+import { metrics } from '../theme/metrics';
 
 type Props = DefaultStackScreenProps<'Screen3'>;
 
