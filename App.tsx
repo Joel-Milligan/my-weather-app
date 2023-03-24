@@ -3,10 +3,11 @@ import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import React from 'react';
 import { Provider, useDispatch, useSelector } from 'react-redux';
+import { PersistGate } from 'redux-persist/integration/react';
 
 import { GlobalLoader } from './components/GlobalLoader';
 import { GlobalLoaderActions } from './reducers/global-loader/reducer';
-import { RootState, store } from './store';
+import { persistor, RootState, store } from './store';
 import { Tab1StackNavigatorParamList, Tab2StackNavigatorParamList } from './views/nav-types';
 import { Screen1 } from './views/screen1';
 import { Screen2 } from './views/screen2';
@@ -65,7 +66,9 @@ function RootContainer() {
 export default function App() {
   return (
     <Provider store={store}>
-      <RootContainer />
+      <PersistGate loading={null} persistor={persistor}>
+        <RootContainer />
+      </PersistGate>
     </Provider>
   );
 }
