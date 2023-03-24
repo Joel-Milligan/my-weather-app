@@ -1,8 +1,8 @@
 import React, { ReactElement } from 'react';
 import { StyleProp, StyleSheet, TouchableOpacity, Text, ViewStyle } from 'react-native';
 
-import colors from '../themes/colors';
-import metrics from '../themes/metrics';
+import colors from '../theme/colors';
+import metrics from '../theme/metrics';
 
 /**
  * A sum type which states that the theme can be primary or secondary.

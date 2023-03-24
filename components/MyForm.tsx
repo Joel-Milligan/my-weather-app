@@ -1,8 +1,8 @@
 import { useEffect, useRef, useState } from 'react';
 import { TextInput } from 'react-native';
 
-import colors from '../themes/colors';
-import metrics from '../themes/metrics';
+import colors from '../theme/colors';
+import metrics from '../theme/metrics';
 
 export function MyForm() {
   const [email, setEmail] = useState('');

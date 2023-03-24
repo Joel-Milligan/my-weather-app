@@ -1,8 +1,8 @@
 import React, { ReactElement } from 'react';
 import { Image, ImageURISource, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 
-import colors from '../themes/colors';
-import metrics from '../themes/metrics';
+import colors from '../theme/colors';
+import metrics from '../theme/metrics';
 
 interface Row {
   title: string;
