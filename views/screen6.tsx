@@ -1,18 +1,21 @@
 import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 
+import { useTabNavigation } from './nav-hooks';
 import { SimpleButton } from '../components/SimpleButton';
 import { colors } from '../theme/colors';
 import { metrics } from '../theme/metrics';
 
 export function Screen6() {
+  const navigation = useTabNavigation();
+
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Screen 6 Body</Text>
       <SimpleButton
         title="What will I do?"
         onPress={() => {
-          // Empty, for now
+          navigation.navigate('Tab1');
         }}
         style={styles.button}
       />
