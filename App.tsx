@@ -2,7 +2,9 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import React from 'react';
+import { Provider } from 'react-redux';
 
+import { store } from './store';
 import { Tab1StackNavigatorParamList, Tab2StackNavigatorParamList } from './views/nav-types';
 import { Screen1 } from './views/screen1';
 import { Screen2 } from './views/screen2';
@@ -38,12 +40,14 @@ const Tab = createBottomTabNavigator();
 
 export default function App() {
   return (
-    <NavigationContainer>
-      <Tab.Navigator screenOptions={{ headerShown: false }}>
-        <Tab.Screen name="Tab1" component={Tab1Stack} options={{ title: 'Tab 1' }} />
-        <Tab.Screen name="Tab2" component={Tab2Stack} options={{ title: 'Tab 2' }} />
-        <Tab.Screen name="Tab3" component={Screen6} options={{ title: 'Screen 6', headerShown: true }} />
-      </Tab.Navigator>
-    </NavigationContainer>
+    <Provider store={store}>
+      <NavigationContainer>
+        <Tab.Navigator screenOptions={{ headerShown: false }}>
+          <Tab.Screen name="Tab1" component={Tab1Stack} options={{ title: 'Tab 1' }} />
+          <Tab.Screen name="Tab2" component={Tab2Stack} options={{ title: 'Tab 2' }} />
+          <Tab.Screen name="Tab3" component={Screen6} options={{ title: 'Screen 6', headerShown: true }} />
+        </Tab.Navigator>
+      </NavigationContainer>
+    </Provider>
   );
 }
