@@ -46,7 +46,6 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     alignItems: 'center',
-    marginBottom: metrics.baseMargin,
   },
   buttonContainer: {
     flexDirection: 'row',
