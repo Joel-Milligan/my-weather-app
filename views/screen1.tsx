@@ -23,6 +23,13 @@ export function Screen1(props: Props): ReactElement {
       <Text style={styles.title}>Screen 1 Body</Text>
       {locationState?.locality && <WeatherData locationDetails={locationState.locality} />}
       <SimpleButton
+        title="Go To Screen 2"
+        onPress={() => {
+          props.navigation.navigate('Screen2');
+        }}
+        style={styles.button}
+      />
+      <SimpleButton
         title="Load"
         onPress={() => {
           dispatch(GlobalLoaderActions.show({ cancelMessage: 'Cancel load' }));
@@ -53,13 +60,6 @@ export function Screen1(props: Props): ReactElement {
         <Text>Copy and paste</Text>
         <Text>Copy and paste</Text>
         <Text>Copy and paste</Text>
-        <SimpleButton
-          title="Go To Screen 2"
-          onPress={() => {
-            props.navigation.navigate('Screen2');
-          }}
-          style={styles.button}
-        />
       </CollapsibleContainer>
     </View>
   );
