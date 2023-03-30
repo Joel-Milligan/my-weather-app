@@ -1,23 +1,21 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { combineReducers, configureStore } from '@reduxjs/toolkit';
-import { FLUSH, PAUSE, PERSIST, PURGE, REGISTER, REHYDRATE } from 'redux-persist';
-import persistReducer from 'redux-persist/es/persistReducer';
-import persistStore from 'redux-persist/es/persistStore';
+import { FLUSH, PAUSE, PERSIST, persistReducer, persistStore, PURGE, REGISTER, REHYDRATE } from 'redux-persist';
 
 import { globalLoaderReducer } from './reducers/global-loader/reducer';
 import { locationReducer } from './reducers/location/reducer';
-import { weatherReducer } from './reducers/weather/reducer';
+import { weatherApi } from './reducers/weather/reducer';
 
 const persistConfig = {
   key: 'root',
   storage: AsyncStorage,
-  whitelist: [],
+  whitelist: [''],
 };
 
 const rootReducer = combineReducers({
   globalLoader: globalLoaderReducer,
   location: locationReducer,
-  weather: weatherReducer,
+  [weatherApi.reducerPath]: weatherApi.reducer,
 });
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);
@@ -29,7 +27,7 @@ export const store = configureStore({
       serializableCheck: {
         ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
       },
-    }),
+    }).concat(weatherApi.middleware),
 });
 
 export const persistor = persistStore(store);

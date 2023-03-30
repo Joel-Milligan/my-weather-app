@@ -1,12 +1,11 @@
 import React, { ReactElement, useEffect } from 'react';
 import { StyleSheet, Text, View } from 'react-native';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 
-import LoadingSpinner from '../components/LoadingSpinner';
+import LoadingSpinner from './LoadingSpinner';
 import { GlobalLoaderActions } from '../reducers/global-loader/reducer';
 import { Locality } from '../reducers/location/reducer';
-import { lookUpWeather, WeatherResponse } from '../reducers/weather/reducer';
-import { AppDispatch, RootState } from '../store';
+import { useGetWeatherByLocalityQuery } from '../reducers/weather/reducer';
 import { colors } from '../theme/colors';
 import { metrics } from '../theme/metrics';
 
@@ -18,27 +17,21 @@ interface Props {
 }
 
 export function WeatherData({ locationDetails, blocking = false }: Props): ReactElement<Props> {
-  const weatherState = useSelector(
-    (state: RootState): WeatherResponse | undefined => state.weather.weatherData[`${locationDetails}`],
-  );
-  const dispatch = useDispatch<AppDispatch>();
+  const weatherState = useGetWeatherByLocalityQuery(locationDetails);
+  const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(lookUpWeather(locationDetails));
-  }, [dispatch, locationDetails]);
-
-  useEffect(() => {
-    if (blocking && weatherState?.type === 'pending') {
+    if (blocking && weatherState.isFetching) {
       dispatch(GlobalLoaderActions.show());
-    } else if (blocking && weatherState?.type !== 'pending') {
+    } else if (blocking && !weatherState.isFetching) {
       dispatch(GlobalLoaderActions.hide());
     }
-  }, [dispatch, blocking, weatherState?.type]);
+  }, [dispatch, blocking, weatherState.isFetching]);
 
-  switch (weatherState?.type) {
-    case 'success': {
-      return (
-        <View style={styles.container}>
+  return (
+    <View style={{ width: '100%', minWidth: 200 }}>
+      {weatherState.data != null && !weatherState.isFetching && (
+        <>
           <Text style={styles.cityText}>{`Today's weather in ` + weatherState.data.name + ` be like👇`}</Text>
           <Text style={styles.dataText}>
             Current temp: {weatherState.data.main.temp}
@@ -54,15 +47,11 @@ export function WeatherData({ locationDetails, blocking = false }: Props): React
             Min temp: {weatherState.data.main.temp_min}
             {DEGRESS_CELSIUS}
           </Text>
-        </View>
-      );
-    }
-    case undefined:
-    case 'pending': {
-      return (
+        </>
+      )}
+      {weatherState.isFetching && !blocking && (
         <View
           style={{
-            ...styles.container,
             width: '100%',
             alignSelf: 'center',
             alignItems: 'center',
@@ -70,25 +59,11 @@ export function WeatherData({ locationDetails, blocking = false }: Props): React
         >
           <LoadingSpinner size="small" />
         </View>
-      );
-    }
-    case 'failure': {
-      return (
-        <View
-          style={{
-            width: '100%',
-            alignSelf: 'center',
-            alignItems: 'center',
-          }}
-        >
-          <Text>ERROR</Text>
-        </View>
-      );
-    }
-  }
+      )}
+    </View>
+  );
 }
 const styles = StyleSheet.create({
-  container: { width: '100%', minWidth: 200 },
   title: {
     fontSize: metrics.titleFontSize,
     color: colors.title,
