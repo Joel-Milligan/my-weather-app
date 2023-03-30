@@ -1,18 +1,16 @@
-import React, { ReactElement, useRef, useState } from 'react';
+import React, { ReactElement, useState } from 'react';
 import { StyleProp, StyleSheet, View, ViewStyle } from 'react-native';
 import MapView, { Callout, Marker } from 'react-native-maps';
 
 import { DefaultStackScreenProps } from './nav-types';
-import { SimpleButton } from '../components/SimpleButton';
 import { WeatherData } from '../components/WeatherData';
 import { Locality } from '../reducers/location/reducer';
 import { colors } from '../theme/colors';
 import { metrics } from '../theme/metrics';
 
-type Props = DefaultStackScreenProps<'Screen2'>;
+type Props = DefaultStackScreenProps<'WeatherScreen'>;
 
-export function Screen2(props: Props): ReactElement<Props> {
-  const counterRef = useRef(0);
+export function WeatherScreen(props: Props): ReactElement<Props> {
   const [locality, setLocality] = useState<Locality | undefined>();
 
   return (
@@ -38,26 +36,6 @@ export function Screen2(props: Props): ReactElement<Props> {
           </Marker>
         )}
       </MapView>
-      <View style={styles.buttonContainer}>
-        <SimpleButton
-          title="Go back"
-          onPress={() => {
-            props.navigation.goBack();
-          }}
-          style={styles.backButton}
-          secondary
-        />
-        <SimpleButton
-          title="Go To Screen 3"
-          onPress={() => {
-            counterRef.current += 1;
-            props.navigation.navigate('Screen3', {
-              counter: counterRef.current,
-            });
-          }}
-          style={styles.nextButton}
-        />
-      </View>
     </View>
   );
 }
