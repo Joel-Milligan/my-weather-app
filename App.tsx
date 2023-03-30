@@ -1,7 +1,7 @@
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { NavigationContainer } from '@react-navigation/native';
-import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import React, { useEffect } from 'react';
+import Icon from 'react-native-vector-icons/FontAwesome5';
 import { Provider, useDispatch, useSelector } from 'react-redux';
 import { PersistGate } from 'redux-persist/integration/react';
 
@@ -9,18 +9,8 @@ import { GlobalLoader } from './components/GlobalLoader';
 import { GlobalLoaderActions } from './reducers/global-loader/reducer';
 import { deviceLocation } from './reducers/location/reducer';
 import { AppDispatch, persistor, RootState, store } from './store';
+import { SettingsScreen } from './views/SettingsScreen';
 import { WeatherScreen } from './views/WeatherScreen';
-import { WeatherTabStackNavigatorParamList } from './views/nav-types';
-
-const WeatherStack = createNativeStackNavigator<WeatherTabStackNavigatorParamList>();
-
-function WeatherTabStack() {
-  return (
-    <WeatherStack.Navigator initialRouteName="WeatherScreen" screenOptions={{ animation: 'slide_from_right' }}>
-      <WeatherStack.Screen name="WeatherScreen" component={WeatherScreen} options={{ title: 'Weather' }} />
-    </WeatherStack.Navigator>
-  );
-}
 
 const Tab = createBottomTabNavigator();
 
@@ -35,8 +25,20 @@ function RootContainer() {
   return (
     <>
       <NavigationContainer>
-        <Tab.Navigator screenOptions={{ headerShown: false }}>
-          <Tab.Screen name="Weather" component={WeatherTabStack} options={{ title: 'Weather' }} />
+        <Tab.Navigator
+          screenOptions={({ route }) => ({
+            tabBarIcon: ({ color, size }) => {
+              switch (route.name) {
+                case 'WeatherScreen':
+                  return <Icon name="cloud-sun-rain" size={size} color={color} />;
+                case 'SettingsScreen':
+                  return <Icon name="users-cog" size={size} color={color} />;
+              }
+            },
+          })}
+        >
+          <Tab.Screen name="WeatherScreen" component={WeatherScreen} options={{ title: 'Weather' }} />
+          <Tab.Screen name="SettingsScreen" component={SettingsScreen} options={{ title: 'Settings' }} />
         </Tab.Navigator>
       </NavigationContainer>
       <GlobalLoader

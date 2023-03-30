@@ -1,16 +1,13 @@
-import React, { ReactElement, useState } from 'react';
+import React, { useState } from 'react';
 import { StyleProp, StyleSheet, View, ViewStyle } from 'react-native';
 import MapView, { Callout, Marker } from 'react-native-maps';
 
-import { DefaultStackScreenProps } from './nav-types';
 import { WeatherData } from '../components/WeatherData';
 import { Locality } from '../reducers/location/reducer';
 import { colors } from '../theme/colors';
 import { metrics } from '../theme/metrics';
 
-type Props = DefaultStackScreenProps<'WeatherScreen'>;
-
-export function WeatherScreen(props: Props): ReactElement<Props> {
+export function WeatherScreen() {
   const [locality, setLocality] = useState<Locality | undefined>();
 
   return (
