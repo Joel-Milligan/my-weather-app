@@ -4,6 +4,7 @@ import { FLUSH, PAUSE, PERSIST, persistReducer, persistStore, PURGE, REGISTER, R
 
 import { globalLoaderReducer } from './reducers/global-loader/reducer';
 import { locationReducer } from './reducers/location/reducer';
+import { settingsReducer } from './reducers/settings/reducer';
 import { weatherApi } from './reducers/weather/reducer';
 
 const persistConfig = {
@@ -16,6 +17,7 @@ const rootReducer = combineReducers({
   globalLoader: globalLoaderReducer,
   location: locationReducer,
   [weatherApi.reducerPath]: weatherApi.reducer,
+  settings: settingsReducer,
 });
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);

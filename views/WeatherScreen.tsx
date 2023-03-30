@@ -1,14 +1,17 @@
 import React, { useState } from 'react';
 import { StyleProp, StyleSheet, View, ViewStyle } from 'react-native';
 import MapView, { Callout, Marker } from 'react-native-maps';
+import { useSelector } from 'react-redux';
 
 import { WeatherData } from '../components/WeatherData';
 import { Locality } from '../reducers/location/reducer';
+import { RootState } from '../store';
 import { colors } from '../theme/colors';
 import { metrics } from '../theme/metrics';
 
 export function WeatherScreen() {
   const [locality, setLocality] = useState<Locality | undefined>();
+  const settings = useSelector((state: RootState) => state.settings);
 
   return (
     <View style={styles.container}>
@@ -28,7 +31,7 @@ export function WeatherScreen() {
         {locality != null && (
           <Marker style={styles.marker} coordinate={locality}>
             <Callout style={styles.callout}>
-              <WeatherData locationDetails={locality} />
+              <WeatherData locationDetails={locality} settings={settings} />
             </Callout>
           </Marker>
         )}

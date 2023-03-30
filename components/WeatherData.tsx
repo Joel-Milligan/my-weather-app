@@ -1,10 +1,11 @@
-import React, { ReactElement, useEffect } from 'react';
+import React, { ReactElement, useEffect, useMemo } from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import { useDispatch } from 'react-redux';
 
 import LoadingSpinner from './LoadingSpinner';
 import { GlobalLoaderActions } from '../reducers/global-loader/reducer';
 import { Locality } from '../reducers/location/reducer';
+import { SettingsState } from '../reducers/settings/reducer';
 import { useGetWeatherByLocalityQuery } from '../reducers/weather/reducer';
 import { colors } from '../theme/colors';
 import { metrics } from '../theme/metrics';
@@ -13,11 +14,13 @@ const DEGRESS_CELSIUS = '°C';
 
 interface Props {
   locationDetails: Locality;
+  settings: SettingsState;
   blocking?: boolean;
 }
 
-export function WeatherData({ locationDetails, blocking = false }: Props): ReactElement<Props> {
-  const weatherState = useGetWeatherByLocalityQuery(locationDetails);
+export function WeatherData({ locationDetails, settings, blocking = false }: Props): ReactElement<Props> {
+  const query = useMemo(() => ({ locality: locationDetails, settings }), [locationDetails, settings]);
+  const weatherState = useGetWeatherByLocalityQuery(query);
   const dispatch = useDispatch();
 
   useEffect(() => {
