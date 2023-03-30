@@ -1,6 +1,7 @@
 import React, { ReactElement } from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 
+import LoadingSpinner from './LoadingSpinner';
 import { GlobalLoaderState } from '../reducers/global-loader/reducer';
 import { colors } from '../theme/colors';
 import { metrics } from '../theme/metrics';
@@ -16,7 +17,7 @@ export function GlobalLoader(props: Props): ReactElement<Props> | null {
   return (
     <View style={styles.container}>
       <View style={styles.loader}>
-        <Text>LOADING...</Text>
+        <LoadingSpinner />
         {props.message != null && <Text style={styles.optionalText}>{props.message}</Text>}
         {props.cancelMessage != null && (
           <Text style={styles.cancelText} onPress={props.onDismiss}>
