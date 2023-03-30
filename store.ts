@@ -6,6 +6,7 @@ import persistStore from 'redux-persist/es/persistStore';
 
 import { globalLoaderReducer } from './reducers/global-loader/reducer';
 import { locationReducer } from './reducers/location/reducer';
+import { weatherReducer } from './reducers/weather/reducer';
 
 const persistConfig = {
   key: 'root',
@@ -16,6 +17,7 @@ const persistConfig = {
 const rootReducer = combineReducers({
   globalLoader: globalLoaderReducer,
   location: locationReducer,
+  weather: weatherReducer,
 });
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);
