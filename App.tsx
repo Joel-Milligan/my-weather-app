@@ -1,13 +1,17 @@
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import React from 'react';
+import React, { useEffect } from 'react';
+import { Alert } from 'react-native';
 import { Provider, useDispatch, useSelector } from 'react-redux';
 import { PersistGate } from 'redux-persist/integration/react';
 
+import { getDeviceLocation, NO_LOCATION_PERMISSIONS_GRANTED } from './api/location';
 import { GlobalLoader } from './components/GlobalLoader';
 import { GlobalLoaderActions } from './reducers/global-loader/reducer';
+import { locationActions } from './reducers/location/reducer';
 import { persistor, RootState, store } from './store';
+import { isErrorObject } from './utils/error';
 import { Tab1StackNavigatorParamList, Tab2StackNavigatorParamList } from './views/nav-types';
 import { Screen1 } from './views/screen1';
 import { Screen2 } from './views/screen2';
@@ -44,6 +48,25 @@ const Tab = createBottomTabNavigator();
 function RootContainer() {
   const globalLoaderState = useSelector((state: RootState) => state.globalLoader);
   const dispatch = useDispatch();
+
+  useEffect(() => {
+    getDeviceLocation()
+      .then((location) => {
+        const loc = dispatch(locationActions.setMyLocation(location.coords));
+        console.log(loc.payload);
+      })
+      .catch((e) => {
+        console.log(e);
+        const errorTitle = 'Error retrieving device location';
+        const error = isErrorObject(e);
+        if (error?.message === NO_LOCATION_PERMISSIONS_GRANTED) {
+          Alert.alert(errorTitle, 'Location permissions have not been granted. Please add them in settings.');
+        } else {
+          Alert.alert(errorTitle, `${error?.message ?? 'Unknown issue has occurred'}`);
+        }
+      });
+  }, [dispatch]);
+
   return (
     <>
       <NavigationContainer>
